@@ -42,7 +42,7 @@ This is a **binary classification** problem. The target is `Revenue`: 1 means th
 
 ## c. GitHub repository link
 
-`<paste your GitHub repository URL here>`
+https://github.com/anandsnr555/2026AK05360-ML-Assignment
 
 ```
 shopper-intent-classifier/

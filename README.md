@@ -1,6 +1,6 @@
 # ShopSense: Predicting Online Shoppers' Purchase Intention
 
-**Live app:** `<paste your Streamlit Community Cloud URL here>`
+**Live app:** https://2026ak05360-shopsense.streamlit.app
 
 ## a. Problem statement
 

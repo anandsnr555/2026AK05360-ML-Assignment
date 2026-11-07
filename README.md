@@ -47,6 +47,7 @@ https://github.com/anandsnr555/2026AK05360-ML-Assignment
 ```
 shopper-intent-classifier/
 ├── app.py                         # Streamlit app (loads saved models, never retrains)
+├── .streamlit/config.toml         # Custom app theme
 ├── train_models.py                # Preprocessing, training, evaluation, model export
 ├── requirements.txt
 ├── README.md
@@ -107,10 +108,15 @@ Precision, Recall and F1 are for the positive class (Purchase). AUC is ROC-AUC c
 
 ## Streamlit app features
 
+The interface is custom-built rather than a stock Streamlit template. It has its own dark theme (`.streamlit/config.toml`), custom fonts and CSS, and hand-made HTML components. The default Streamlit menu, toolbar and footer are hidden.
+
+- **Guided sidebar** in three numbered steps: test data, classifier, decision threshold.
 - **CSV upload** for labelled test data. You can also switch on the bundled `test_data.csv` or download it as a sample.
-- **Model selection** dropdown covering all 5 classifiers.
-- **Evaluation metrics:** Accuracy, AUC, Precision, Recall, F1 and MCC, shown as metric cards.
-- **Confusion matrix** (heatmap with a plain-language reading) and a **classification report**.
-- **Compare all models** tab: a metric table with the best value in each column highlighted, plus a bar chart.
-- **Predictions** tab: per-session probabilities, a filter for misclassified rows, and a CSV download.
+- **Model selection** dropdown covering all 5 classifiers, with a one-line profile of the chosen model.
+- **Evaluation metrics:** Accuracy, AUC, Precision, Recall, F1 and MCC, shown as custom cards. Each card has a colour-coded bar and a plain-language hint.
+- **Confusion matrix** drawn as a custom 2×2 grid, with labels for true and false positives and negatives and a one-line reading.
+- **Classification report** as a styled table, per class plus the macro and weighted averages.
+- **Model leaderboard:** all 5 models ranked by MCC, with in-cell bars and the best value in each column highlighted.
+- **Score distribution:** a histogram of predicted purchase probability for buyers and non-buyers, with the decision threshold marked.
+- **Predictions** tab: per-session probability bars, a filter for misclassified rows, and a CSV download.
 - A **decision threshold** slider to explore the precision/recall trade-off. At 0.50 the app reproduces the table above.

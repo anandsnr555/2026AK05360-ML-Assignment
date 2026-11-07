@@ -364,7 +364,15 @@ with tab_compare:
         results.append({"Model": name, **score(y, p, pr)})
     board = pd.DataFrame(results).set_index("Model").sort_values("MCC", ascending=False)
     best = board.max()
-    head = "".join(f"<th>{c}</th>" for c in board.columns)
+    winner = board.index[0]
+    wins = int(sum(np.isclose(board.loc[winner, c], best[c]) for c in board.columns))
+    ui(f'<div class="ss-model" style="margin:0 0 .9rem 0;border-color:rgba(251,191,36,.45);'
+       f'background:linear-gradient(90deg,rgba(251,191,36,.12),#121c30 60%)">'
+       f'<span class="ss-badge" style="background:{AMBER}">🏆 Overall winner</span>'
+       f'<div><b style="color:#f8fafc;font-size:1.05rem">{winner}</b> &nbsp;·&nbsp; '
+       f'MCC {board.loc[winner, "MCC"]:.3f} &nbsp;·&nbsp; F1 {board.loc[winner, "F1"]:.3f} '
+       f'&nbsp;·&nbsp; best on {wins} of {len(board.columns)} metrics for this data</div></div>')
+    head ="".join(f"<th>{c}</th>" for c in board.columns)
     body = ""
     for rank, (name, row) in enumerate(board.iterrows(), start=1):
         crown = ' <span class="ss-crown">★</span>' if rank == 1 else ""

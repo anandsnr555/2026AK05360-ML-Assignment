@@ -106,6 +106,18 @@ Precision, Recall and F1 are for the positive class (Purchase). AUC is ROC-AUC c
 | Support Vector Machine | Second best overall (MCC 0.519, F1 0.557, precision 0.737). The RBF kernel captures non-linear interactions that Logistic Regression cannot, so it beats LR on every threshold-based metric, though its AUC (0.874) is about the same. Training is the slowest of the five, because of the kernel computation plus the internal cross-validation needed for `probability=True`, and the model is hard to interpret. |
 | **Overall winner for this dataset** | **Decision Tree.** It has the highest Accuracy, AUC, Precision, F1 and MCC, trains in under a second, and its splits on `PageValues`, `BounceRates` and `Month` can be explained to a business user. MCC is the most reliable single metric for this imbalanced data, and on MCC the ranking is Decision Tree > SVM > Logistic Regression > KNN > Naive Bayes. Every model would gain recall from a lower decision threshold, which you can try with the threshold slider in the app. |
 
+### 🏆 Overall winner: Decision Tree
+
+| Rank (by MCC) | Model | MCC | F1 | AUC | Accuracy |
+|---|---|---|---|---|---|
+| 🥇 1 | **Decision Tree** | **0.5806** | **0.6248** | **0.9195** | **0.9006** |
+| 🥈 2 | Support Vector Machine | 0.5185 | 0.5570 | 0.8743 | 0.8897 |
+| 🥉 3 | Logistic Regression | 0.4428 | 0.4730 | 0.8797 | 0.8771 |
+| 4 | KNN | 0.4081 | 0.4369 | 0.8288 | 0.8715 |
+| 5 | Naive Bayes | 0.1463 | 0.2978 | 0.7432 | 0.2810 |
+
+The **Decision Tree** is the best model for this dataset. It leads on 5 of the 6 metrics (Accuracy, AUC, Precision, F1 and MCC) and is the fastest and most interpretable of the five. Naive Bayes has the highest Recall, but only because it labels almost every session as a purchase.
+
 ## Streamlit app features
 
 The interface is custom-built rather than a stock Streamlit template. It has its own dark theme (`.streamlit/config.toml`), custom fonts and CSS, and hand-made HTML components. The default Streamlit menu, toolbar and footer are hidden.

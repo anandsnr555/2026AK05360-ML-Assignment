@@ -140,6 +140,18 @@ def main() -> None:
     metrics.to_csv(MODEL_DIR / "metrics.csv", index=False)
     print("\n" + metrics.to_string(index=False))
 
+    # MCC is the most reliable single score for this imbalanced target
+    ranking = metrics.sort_values("MCC", ascending=False).reset_index(drop=True)
+    winner = ranking.loc[0]
+    metric_cols = ["Accuracy", "AUC", "Precision", "Recall", "F1", "MCC"]
+    wins = [c for c in metric_cols if winner[c] == metrics[c].max()]
+    print("\nRanking by MCC:")
+    for i, row in ranking.iterrows():
+        print(f"  {i + 1}. {row['Model']:<24} MCC={row['MCC']:.4f}")
+    print(f"\nOVERALL WINNER: {winner['Model']} "
+          f"(MCC={winner['MCC']:.4f}, F1={winner['F1']:.4f}, AUC={winner['AUC']:.4f}; "
+          f"best on {len(wins)} of {len(metric_cols)} metrics: {', '.join(wins)})")
+
 
 if __name__ == "__main__":
     main()
